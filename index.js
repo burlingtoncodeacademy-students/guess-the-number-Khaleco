@@ -1,5 +1,6 @@
 const readline = require('readline');
 const rl = readline.createInterface(process.stdin, process.stdout);
+// const {reverse} = require("./reverse_game.js");
 
 function ask(questionText) {
   return new Promise((resolve, reject) => {
@@ -7,11 +8,11 @@ function ask(questionText) {
   });
 }
 
-start();
-
 async function start() {
   let playAgain = "y";
+  var cheated = false;
   while (playAgain.toLowerCase() == "y"){
+    cheated = false;
     console.log("Let's play a game where you (human) make up a number and I (computer) try to guess it.");
     let lowestNum = await ask("What is the lowest number in the range? ");
     let highestNum = await ask("What is the highest number in the range? ");
@@ -23,19 +24,19 @@ async function start() {
     secretNumber = Number(secretNumber);
     
     if (secretNumber > highestNum || secretNumber < lowestNum){
-      process.stdout.write("No fair! Your trying to Cheat!");
-      process.exit();
+      console.log("No fair! Your trying to Cheat!");
+      cheated = true;
     } else if (isNaN(secretNumber)) {
-      process.stdout.write("That's not a number.");
-      process.exit();
+      console.log("That's not a number.");
+      cheated = true;
     } else {
-      process.stdout.write("Lets begin!");
+      console.log("Lets begin!");
       let numGuessed = "n";
-      let tries = 1;
-      while (numGuessed.toLowerCase() != "y") {
+      var tries = 1;
+      tries = 1;
+      while (numGuessed.toLowerCase() != "y" && cheated == false) {
         numGuessed = await ask(`Is your Number ${Math.floor((highestNum + lowestNum) / 2)}? (Y/N)? `);
         if (numGuessed.toLowerCase() == "n") {
-          var cheated = false;
           tries++;
           if (prevGuess != (Math.floor((highestNum + lowestNum) / 2))){
             var prevGuess = 0;
@@ -62,3 +63,19 @@ async function start() {
 }
 process.exit();
 }
+
+start();
+
+// ? Bugged (displays double input in terminal but reads singular has to do with readline running in both)
+// async function games(){
+// let game = await ask("Would you like to play regular or reverse? ");
+//   if (game.toLowerCase() == "regular") {
+//     start();
+//   } else if (game.toLowerCase() == "reverse"){
+//     reverse();
+//   } else {
+//     process.exit();
+//   }
+// }
+
+// games();
