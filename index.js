@@ -1,12 +1,12 @@
-const readline = require('readline');
-const rl = readline.createInterface(process.stdin, process.stdout);
-// const {reverse} = require("./reverse_game.js");
+// const readline = require('readline');
+// const rl = readline.createInterface(process.stdin, process.stdout);
+const {reverse, rl, ask} = require('./reverse_game.js')
 
-function ask(questionText) {
-  return new Promise((resolve, reject) => {
-    rl.question(questionText, resolve);
-  });
-}
+// function ask(questionText) {
+//   return new Promise((resolve, reject) => {
+//     rl.question(questionText, resolve);
+//   });
+// }
 
 async function start() {
   let playAgain = "y";
@@ -74,19 +74,18 @@ async function start() {
 process.exit();
 }
 
-start();
+// start();
 
-// ? Bugged (displays double input in terminal but reads singular has to do with readline running in both)
-// * function to chose which game the user wants to play
-// async function games(){
-// let game = await ask("Would you like to play regular or reverse? ");
-//   if (game.toLowerCase() == "regular") {
-//     start();
-//   } else if (game.toLowerCase() == "reverse"){
-//     reverse();
-//   } else {
-//     process.exit();
-//   }
-// }
+// function to chose which game the user wants to play
+async function games(){
+let game = await ask("Would you like to play regular or reverse? ");
+  if (game.toLowerCase() == "regular") {
+    start();
+  } else if (game.toLowerCase() == "reverse"){
+    reverse();
+  } else {
+    process.exit();
+  }
+}
 
-// games();
+games();

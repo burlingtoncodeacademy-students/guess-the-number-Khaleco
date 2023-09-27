@@ -41,6 +41,6 @@ async function reverse(){
     process.exit();
 }
 
-reverse();
+// reverse();
 
-// module.exports = {reverse};
+module.exports = {reverse, rl, ask};
