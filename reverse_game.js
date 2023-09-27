@@ -10,7 +10,7 @@ function ask(questionText) {
 async function reverse(){
     let playAgain = "y";
     // while loop of the game until playAgain is set to !"y"
-    while (playAgain.toLowerCase() == "y") {
+    while (playAgain.toLowerCase().trim() == "y") {
         var tries = 0;
         tries = 0;
         // displays the rules of the game
@@ -20,7 +20,7 @@ async function reverse(){
         // while loop until guess is correct
         while (guess != num) {
             var guess = await ask("What is your guess? ");
-            guess = Number(guess);
+            guess = Number(guess.trim());
             tries++;
             // If input is invalid tell the player that it is so
             if (isNaN(guess)) {
